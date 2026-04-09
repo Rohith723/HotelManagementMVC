@@ -1,0 +1,27 @@
+﻿@model System.Data.DataTable
+
+@{
+    ViewBag.Title = "Hotel Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Welcome, @ViewBag.Username 🎉</h3>
+
+<h4>Your Hotel Registrations</h4>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Room Type</th>
+        <th>Amenities</th>
+        <th>Price</th>
+    </tr>
+
+    @foreach (System.Data.DataRow row in Model.Rows)
+    {
+        <tr>
+            <td>@row["RoomType"]</td>
+            <td>@row["Amenities"]</td>
+            <td>₹ @row["Price"]</td>
+        </tr>
+    }
+</table>

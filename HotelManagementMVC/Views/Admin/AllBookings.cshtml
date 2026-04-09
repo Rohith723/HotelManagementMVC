@@ -1,0 +1,35 @@
+﻿@model System.Data.DataTable
+
+<h2>All Bookings</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>User</th>
+        <th>Room</th>
+        <th>Amenities</th>
+        <th>Check-In</th>
+        <th>Check-Out</th>
+        <th>Guests</th>
+        <th>Price</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (System.Data.DataRow row in Model.Rows)
+    {
+        <tr>
+            <td>@row["Username"]</td>
+            <td>@row["RoomType"]</td>
+            <td>@row["Amenities"]</td>
+            <td>@row["CheckIn"]</td>
+            <td>@row["CheckOut"]</td>
+            <td>@row["Guests"]</td>
+            <td>₹ @row["Price"]</td>
+
+            <td>
+                <a href="/Admin/DeleteBooking?id=@row["HotelId"]" class="btn btn-danger btn-sm">Cancel</a>
+
+                <a href="/Admin/DownloadInvoice?id=@row["HotelId"]" class="btn btn-success btn-sm">PDF</a>
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,247 @@
+﻿@model HotelManagementMVC.Models.Hotel
+
+@{
+    ViewBag.Title = "Book Room";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .booking-hero {
+        height: 500px;
+        background: url('/Content/images/hotel1.jpg') no-repeat center;
+        background-size: cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .booking-box {
+        background: rgba(0,0,0,0.7);
+        padding: 30px;
+        border-radius: 15px;
+        color: white;
+        width: 90%;
+        max-width: 900px;
+    }
+
+    .booking-btn {
+        height: 50px;
+        font-size: 18px;
+        width: 100%;
+    }
+
+    .result-box {
+        background: white;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 10px;
+    }
+</style>
+
+<div class="booking-hero">
+
+    <div class="booking-box">
+
+        <h2 class="text-center mb-4">Book Your Stay</h2>
+
+        <!-- ✅ SEARCH FORM -->
+        @using (Html.BeginForm("Search", "Hotel", FormMethod.Get))
+        {
+            <div class="row">
+
+                <div class="col-md-3">
+                    <label>Check-In</label>
+                    <input type="date" name="checkIn" class="form-control" />
+                </div>
+
+                <div class="col-md-3">
+                    <label>Check-Out</label>
+                    <input type="date" name="checkOut" class="form-control" />
+                </div>
+
+                <div class="col-md-2">
+                    <label>Guests</label>
+                    <select name="guests" class="form-control">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label>Room</label>
+                    <select name="roomType" class="form-control">
+                        <option>Deluxe</option>
+                        <option>Ordinary</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-warning booking-btn">
+                        Search
+                    </button>
+                </div>
+
+            </div>
+        }
+
+    </div>
+</div>
+
+<!-- ✅ RESULT DISPLAY -->
+@if (Model != null)
+{
+    <div class="container">
+        <div class="result-box">
+            <h3>Room Found ✅</h3>
+
+            <p><b>Room Type:</b> @Model.RoomType</p>
+            <p><b>Amenities:</b> @Model.Amenities</p>
+        </div>
+    </div>
+}    background: rgba(0,0,0,0.7);
+        padding: 30px;
+        border-radius: 15px;
+        color: white;
+        width: 90%;
+        max-width: 900px;
+    }
+
+    .booking-btn {
+        height: 50px;
+        font-size: 18px;
+        width: 100%;
+    }
+
+    .price-box {
+        font-size: 20px;
+        margin-top: 10px;
+        color: gold;
+    }
+
+    .amenity-label {
+        margin-right: 10px;
+    }
+</style>
+
+<div class="booking-hero">
+
+    <div class="booking-box">
+
+        <h2 class="text-center mb-4">Book Your Stay</h2>
+
+        @using (Html.BeginForm("Register", "Hotel", FormMethod.Get))
+        {
+            <div class="row">
+
+                <!-- Check-In -->
+                <div class="col-md-3">
+                    <label>Check-In</label>
+                    <input type="date" id="checkIn" name="checkIn" class="form-control" />
+                </div>
+
+                <!-- Check-Out -->
+                <div class="col-md-3">
+                    <label>Check-Out</label>
+                    <input type="date" id="checkOut" name="checkOut" class="form-control" />
+                </div>
+
+                <!-- Guests -->
+                <div class="col-md-2">
+                    <label>Guests</label>
+                    <select name="guests" class="form-control">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+
+                <!-- Room -->
+                <div class="col-md-2">
+                    <label>Room</label>
+                    <select id="roomType" name="roomType" class="form-control">
+                        <option value="Deluxe">Deluxe</option>
+                        <option value="Ordinary">Ordinary</option>
+                    </select>
+                </div>
+
+                <!-- Search Button -->
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-warning booking-btn">
+                        Search
+                    </button>
+                </div>
+
+            </div>
+
+            <hr />
+
+            <!-- Amenities -->
+            <label>Amenities</label><br />
+
+            <label class="amenity-label">
+                <input type="checkbox" class="amenity" name="Amenities" value="AC" data-price="1000" /> ❄️ AC
+            </label>
+
+            <label class="amenity-label">
+                <input type="checkbox" class="amenity" name="Amenities" value="WiFi" data-price="500" /> 📶 WiFi
+            </label>
+
+            <label class="amenity-label">
+                <input type="checkbox" class="amenity" name="Amenities" value="TV" data-price="300" /> 📺 TV
+            </label>
+
+            <label class="amenity-label">
+                <input type="checkbox" class="amenity" name="Amenities" value="Breakfast" data-price="700" /> 🍳 Breakfast
+            </label>
+
+            <!-- Price Display -->
+            <div class="price-box">
+                Total Price: ₹ <span id="price">2000</span>
+            </div>
+
+            <button type="submit" class="btn btn-warning booking-btn">
+                Book Now
+            </button>
+        }
+
+    </div>
+</div>
+
+<!-- ✅ SCRIPT -->
+<script>
+    let basePrice = 2000;
+
+    document.querySelectorAll(".amenity").forEach(cb => {
+        cb.addEventListener("change", calculatePrice);
+    });
+
+    document.getElementById("checkIn").addEventListener("change", calculatePrice);
+    document.getElementById("checkOut").addEventListener("change", calculatePrice);
+
+    function calculateDays() {
+        let checkIn = new Date(document.getElementById("checkIn").value);
+        let checkOut = new Date(document.getElementById("checkOut").value);
+
+        if (!checkIn || !checkOut || checkOut <= checkIn) return 1;
+
+        let diff = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
+        return diff;
+    }
+
+    function calculatePrice() {
+        let total = basePrice;
+
+        document.querySelectorAll(".amenity:checked").forEach(cb => {
+            total += parseInt(cb.dataset.price);
+        });
+
+        let days = calculateDays();
+        let final = total * days;
+
+        document.getElementById("price").innerText = final;
+
+        // ✅ send to controller
+        document.getElementById("finalPrice").value = final;
+    }
+</script>

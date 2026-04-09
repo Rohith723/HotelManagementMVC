@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Admin Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .card-box {
+        padding: 30px;
+        border-radius: 15px;
+        color: white;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .bg1 {
+        background: #1abc9c;
+    }
+
+    .bg2 {
+        background: #3498db;
+    }
+</style>
+
+<h2 class="mb-4">Admin Dashboard</h2>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="card-box bg1">
+            <h3>@ViewBag.UserCount</h3>
+            <p>Total Users</p>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card-box bg2">
+            <h3>@ViewBag.HotelCount</h3>
+            <p>Total Hotels</p>
+        </div>
+    </div>
+
+</div>
+
+<br />
+
+<div>
+    <a href="/User/Dashboard" class="btn btn-dark">Manage Users</a>
+    <a href="/Hotel/Details" class="btn btn-warning">Manage Hotels</a>
+</div>

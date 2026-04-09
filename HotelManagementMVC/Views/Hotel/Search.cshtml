@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Search Rooms";
+}
+
+@using (Html.BeginForm("SearchResult", "Hotel", FormMethod.Get))
+{
+    <div class="col-md-3">
+        <label>Room</label>
+        <select name="roomType" class="form-control">
+            <option value="">--Select--</option>
+            <option value="Deluxe">Deluxe</option>
+            <option value="Ordinary">Ordinary</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-warning">
+        Search
+    </button>
+}

@@ -1,0 +1,13 @@
+﻿@model HotelManagementMVC.Models.Hotel
+
+<h2>Search Result</h2>
+
+@if (Model != null)
+{
+    <p><b>Room Type:</b> @Model.RoomType</p>
+    <p><b>Amenities:</b> @Model.Amenities</p>
+}
+else
+{
+    <p>No rooms found ❌</p>
+}

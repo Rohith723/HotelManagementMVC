@@ -1,0 +1,47 @@
+﻿@model System.Data.DataTable
+
+@{
+    ViewBag.Title = "User Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>User Details</h3>
+<input type="text" id="search" placeholder="Search..." class="form-control mb-2" />
+<table class="table table-bordered">
+    <tr>
+        @foreach (System.Data.DataColumn col in Model.Columns)
+        {
+            <th>@col.ColumnName</th>
+        }
+
+    </tr>
+
+    @foreach (System.Data.DataRow row in Model.Rows)
+    {
+        <tr>
+            @foreach (var item in row.ItemArray)
+            {
+                <td>@item</td>
+            }
+        </tr>
+        <a href="/User/Edit?id=@row["UserId"]">Edit</a>
+        <a href="/User/Delete?id=@row["UserId"]">Delete</a>
+    }
+
+</table>
+
+<br />
+
+<a href="/Hotel/Register" class="btn btn-success">
+    Click here for Hotel Registration
+</a>
+<script>
+    document.getElementById("search").onkeyup = function () {
+        let val = this.value.toLowerCase();
+        let rows = document.querySelectorAll("table tr");
+
+        rows.forEach(r => {
+            r.style.display = r.innerText.toLowerCase().includes(val) ? "" : "none";
+        });
+    }
+</script>
