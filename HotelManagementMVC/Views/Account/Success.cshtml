@@ -3,8 +3,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Registration Successful!</h3>
+<div class="text-center mt-5">
+    <h2 class="text-success">Registration Successful! 🎉</h2>
 
-<p>Click below to login:</p>
+    <p>You will be redirected to Login page in <span id="count">5</span> seconds...</p>
 
-<a href="/Account/Login" class="btn btn-primary">Go to Login</a>
+    <a href="/Account/Login" class="btn btn-primary mt-3">Go to Login Now</a>
+</div>
+
+<script>
+    let seconds = 5;
+
+    let countdown = setInterval(function () {
+        seconds--;
+        document.getElementById("count").innerText = seconds;
+
+        if (seconds <= 0) {
+            clearInterval(countdown);
+            window.location.href = "/Account/Login";
+        }
+    }, 1000);
+</script>

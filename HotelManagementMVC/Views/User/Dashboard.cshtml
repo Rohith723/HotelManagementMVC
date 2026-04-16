@@ -22,10 +22,20 @@
             @foreach (var item in row.ItemArray)
             {
                 <td>@item</td>
+
             }
+        <td>
+            <a href="/User/Edit?id=@row["UserId"]" class="btn btn-sm btn-primary">
+                Edit
+            </a>
+
+            <a href="/User/Delete?id=@row["UserId"]"
+               class="btn btn-sm btn-danger"
+               onclick="return confirmDelete();">
+                Delete
+            </a>
+        </td>
         </tr>
-        <a href="/User/Edit?id=@row["UserId"]">Edit</a>
-        <a href="/User/Delete?id=@row["UserId"]">Delete</a>
     }
 
 </table>
@@ -43,5 +53,9 @@
         rows.forEach(r => {
             r.style.display = r.innerText.toLowerCase().includes(val) ? "" : "none";
         });
+    }
+
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this user?");
     }
 </script>

@@ -46,12 +46,12 @@ namespace HotelManagementMVC.Controllers
                     cmd.Parameters.AddWithValue("@Age", user.Age);
                     cmd.Parameters.AddWithValue("@Languages", user.Languages);
                     cmd.Parameters.AddWithValue("@Country", user.Country);
-
                     con.Open();
                     cmd.ExecuteNonQuery();
                 }
 
                 return RedirectToAction("Success");
+
             }
 
             return View(user);
@@ -114,7 +114,6 @@ namespace HotelManagementMVC.Controllers
                 return Convert.ToBase64String(bytes);
             }
         }
-
         // Logout
         public ActionResult Logout()
         {

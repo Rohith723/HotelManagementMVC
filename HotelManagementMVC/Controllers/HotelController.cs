@@ -10,19 +10,14 @@ namespace HotelManagementMVC.Controllers
     public class HotelController : Controller
     {
         string cs = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
-
-       
         public ActionResult Register()
         {
             if (Session["Username"] == null)
                 return RedirectToAction("Login", "Account");
-
             Hotel model = new Hotel();
             model.Username = Session["Username"].ToString();
-
             return View(model);
         }
-
         [HttpPost]
         public ActionResult Register(Hotel hotel, string[] Amenities, DateTime checkIn, DateTime checkOut, int guests)
         {
@@ -72,7 +67,7 @@ namespace HotelManagementMVC.Controllers
             return View("BookingSuccess", hotel);
         }
 
-     
+
         public ActionResult Details()
         {
             if (Session["Username"] == null)
@@ -84,6 +79,8 @@ namespace HotelManagementMVC.Controllers
             {
                 SqlCommand cmd = new SqlCommand("sp_GetHotels", con);
                 cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("@Username", Session["Username"].ToString());
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.Fill(dt);
